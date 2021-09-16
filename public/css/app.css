@@ -10942,3 +10942,7 @@ a.text-dark:focus {
   }
 }
 
+.post_text {
+  padding: 100px 30px;
+}
+
