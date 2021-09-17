@@ -19,7 +19,15 @@
                 <td>{{$post->username}}</td>
                 <td>{{$post->post_text}}</td>
                 <td><img src="{{$post->post_img}}" alt="picture of {{$post->username}}" /></td>
-                <td><a href="{{ route('posts.show', ['post'=>$post->id]) }}">Maggiori info</a></td>
+                <td>
+                    <a href="{{ route('posts.show', ['post'=>$post->id]) }}">Maggiori info</a>
+                    <a href="{{ route('posts.edit', ['post'=>$post->id]) }}">Modifica</a>
+                    <form action="{{ route('posts.destroy', $post) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Elimina</i></button>
+                    </form>
+                </td>
             </tr>
         @endforeach
     </tbody>

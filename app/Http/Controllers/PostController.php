@@ -45,11 +45,7 @@ class PostController extends Controller
 
         $post = new Post();
 
-        $post->username = $data['username'];
-        $post->post_text = $data['post_text'];
-        $post->post_img = $data['post_img'];
-
-        $post->save();  
+        $this->fillAndSavePost($post, $data);
 
         return redirect()->route('posts.show', $post->id);
     }
@@ -72,9 +68,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -84,9 +80,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $data = $request->all();       
+        
+        $this->fillAndSavePost($post, $data);
+
+        return redirect()->route('posts.show', $post);
     }
 
     /**
@@ -95,8 +95,21 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect()->route('posts.index');
     }
+
+    private function fillAndSavePost(Post $post, $data) {
+        $post->username = $data['username'];
+        $post->post_text = $data['post_text'];
+        $post->post_img = $data['post_img'];
+        $post->save(); 
+    }
+
+
+
+
 }
