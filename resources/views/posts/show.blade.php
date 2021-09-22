@@ -8,6 +8,7 @@
             <h1>#{{$post->id}}</h1>
             <div>Utente: {{$post->username}}</div>
             <p class="post_text">{{$post->post_text}}</p>
+            <div>Tema:  {{ $post->category->name }} </div>
             <div>
                 <a href="{{ route('posts.index') }}">Torna Indietro</a>
             </div>
